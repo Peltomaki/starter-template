@@ -1,8 +1,10 @@
 <template>
-  <the-nav />
-  <main class="form-signin">
-    <router-view />
-  </main>
+  <div>
+    <the-nav />
+    <main class="form-signin">
+      <router-view />
+    </main>
+  </div>
 </template>
 <script>
 import TheNav from './components/TheNav.vue'
