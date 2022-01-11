@@ -92,17 +92,15 @@ const createAndSendToken = (user, status, res, message) => {
       if (!(await user.correctPassword(password, user.password)) || !user) {
         //if (!(await bcrypt.compare(password, user.password)) || !user) {
         return next(
-          res
-            .status(401)
-            .send({ message: 'Tunnus tai salasana virheellinen 1' })
+          res.status(401).send({ error: 'Tunnus tai salasana virheellinen 1' })
         );
       }
       const userJson = user.toJSON();
       delete userJson.password;
       console.log(userJson);
-      createAndSendToken(userJson, 200, res, 'ok');
+      createAndSendToken(userJson, 200, res, 'Kirjautuminen onnistui');
     } catch (error) {
-      res.status(401).send({ message: 'Tunnus tai salasana virheellinen 2' });
+      res.status(401).send({ error: 'Tunnus tai salasana virheellinen 2' });
     }
   });
 (exports.forgotPassword = async (req, res, next) => {

@@ -7,7 +7,7 @@
         type="email"
         class="form-control"
         placeholder="Email"
-        v-model="data.email"
+        v-model="user.email"
       />
     </div>
     <div class="form-floating">
@@ -15,7 +15,7 @@
         type="password"
         class="form-control"
         placeholder="Password"
-        v-model="data.password"
+        v-model="user.password"
       />
     </div>
 
@@ -28,26 +28,35 @@
 
 <script>
   import { reactive } from 'vue';
-  import axios from 'axios';
+  import AuthenticationService from '@/services/AuthenticationService';
 
   export default {
     name: 'Login',
 
     setup() {
-      const data = reactive({
+      const message = reactive({
+        success: '',
+        error: '',
+      });
+      const user = reactive({
         email: '',
         password: '',
       });
       const login = async () => {
-        const data1 = await axios.post(
-          'http://localhost:5003/api/v1/users/login',
-          data,
-          { withCredentials: true }
-        );
-        console.log(data1.data);
+        try {
+          const credintials = {
+            email: user.email,
+            password: user.password,
+          };
+          const userLogin = await AuthenticationService.login(credintials);
+          message.success = userLogin.data.message;
+          console.log(userLogin);
+        } catch (error) {
+          console.log(error);
+        }
       };
 
-      return { data, login };
+      return { message, user, login };
     },
   };
 </script>
