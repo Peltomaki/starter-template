@@ -1,8 +1,5 @@
 <template>
   <div>
-    <the-nav />
-    <main class="form-signin">
-      <router-view name="admin-view" />
-    </main>
+    <router-view name="admin" />
   </div>
 </template>
