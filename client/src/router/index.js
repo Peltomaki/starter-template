@@ -3,6 +3,7 @@ import Home from '@/views/Home'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Admin from '@/views/Admin'
+import Dashboard from '@/components/admin/Dashboard.vue'
 
 //Admin
 
@@ -14,11 +15,11 @@ const routes = [
     component: Home,
   },
   {
-    path: '/login',
+    path: '/auth/login',
     component: Login,
   },
   {
-    path: '/register',
+    path: '/auth/register',
     component: Register,
   },
   {
@@ -42,6 +43,12 @@ const routes = [
           admin: ShowUsers,
         },
       },
+      {
+        path: 'dashboard',
+        components: {
+          admin: Dashboard,
+        },
+      },
     ],
   },
 ]
@@ -54,10 +61,10 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    let isAuthenticated = true
+    let isAuthenticated = false
     if (!isAuthenticated) {
       next({
-        path: '/login',
+        path: '/auth/login',
         query: {redirect: to.fullPath},
       })
     } else {

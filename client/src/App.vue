@@ -1,9 +1,7 @@
 <template>
   <div>
     <the-nav />
-    <main class="form-signin">
-      <router-view />
-    </main>
+    <router-view />
   </div>
 </template>
 <script>
@@ -12,7 +10,7 @@ export default {
   components: {TheNav},
 }
 </script>
-<style>
+<style scoped>
 .form-signin {
   width: 100%;
   max-width: 330px;
